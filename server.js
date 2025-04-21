@@ -12,7 +12,13 @@ const PORT = process.env.PORT || 5001;
 
 // 自定义CORS中间件，不使用cors包
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+  const origin = req.headers.origin;
+  
+  // 允许vercel部署的前端和所有localhost端口
+  if (origin === 'https://japanese-learning-frontend.vercel.app' || origin && origin.match(/^http:\/\/localhost:[0-9]+$/)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
