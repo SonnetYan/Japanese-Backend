@@ -29,9 +29,9 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 // 连接到 MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/japanese-learning-app')
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log(err));
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => console.log('MongoDB Atlas connected successfully'))
+.catch(err => console.log('MongoDB connection error:', err));
 
 // 路由
 app.use('/api/vocabulary', vocabularyRoutes);
